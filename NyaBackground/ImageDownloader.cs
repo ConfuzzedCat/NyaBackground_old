@@ -14,7 +14,7 @@ namespace NyaBackground
         public static async Task NekoAsync()
         {
 
-            imgDownloader.SendRequest();
+            imgDownloader.SendRequest(true, );
             Console.WriteLine("Requesting image...");
             Request Req = await imgDownloader.Image_v3.Neko(1);
             Console.WriteLine(Req.ImageUrl);

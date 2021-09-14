@@ -1,17 +1,29 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace NyaBackground
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) => RunAsync();
+
+        public static async void RunAsync()
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) Environment.Exit(1);
-            Console.WriteLine("Welcome!");
-            ChangeWallpaper.GetImage();
-            Console.WriteLine(ChangeWallpaper.GetImagePath());
             
+            bool testing = true;
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !testing) 
+            {
+                Console.WriteLine("Linux not supported yet.");
+                Environment.Exit(0);
+            }
+            Console.WriteLine("Welcome!");
+            
+            //await ChangeWallpaper.GetImageAsync();
+            await ImageDownloader.NekoAsync();
+            Console.WriteLine(ChangeWallpaper.GetImagePath());
+
+
         }
     }
 }

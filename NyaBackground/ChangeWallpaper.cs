@@ -12,7 +12,7 @@ namespace NyaBackground
 {
     class ChangeWallpaper
     {
-        public static void GetImage()
+        public static async Task GetImageAsync()
         {
             
 
@@ -22,7 +22,7 @@ namespace NyaBackground
                 Directory.CreateDirectory(path);
                 Console.WriteLine($"{path} created!");
             }
-            
+            await ImageDownloader.NekoAsync();          
             string photo = $@"{path}\current.PNG";
             DisplayPicture(photo);
         }
