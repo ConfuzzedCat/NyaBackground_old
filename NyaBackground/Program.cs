@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace NyaBackground
 {
@@ -6,9 +7,11 @@ namespace NyaBackground
     {
         static void Main(string[] args)
         {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) Environment.Exit(1);
             Console.WriteLine("Welcome!");
             ChangeWallpaper.GetImage();
             Console.WriteLine(ChangeWallpaper.GetImagePath());
+            
         }
     }
 }
