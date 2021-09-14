@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 using System.IO;
 //using NekosSharp;
 
@@ -12,9 +7,17 @@ namespace NyaBackground
 {
     class ChangeWallpaper
     {
-        public static async Task GetImageAsync()
+        
+        public static string ImagePath()
         {
-            
+            string imagePath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), "img"), "current.png");
+            return imagePath;
+        } 
+        
+        public static void GetImage()
+        {
+
+
 
             string path = Path.Combine(Directory.GetCurrentDirectory(), "img");
             if (!Directory.Exists(path))
@@ -22,8 +25,9 @@ namespace NyaBackground
                 Directory.CreateDirectory(path);
                 Console.WriteLine($"{path} created!");
             }
-            await ImageDownloader.NekoAsync();          
-            string photo = $@"{path}\current.PNG";
+            ImageDownloader_NekosdotLife.Neko();
+            Console.WriteLine("DEBUG: ImageDownloader.Neko() DONE");
+            string photo = Path.Combine(path,"current.png");
             DisplayPicture(photo);
         }
         public static string GetImagePath()
