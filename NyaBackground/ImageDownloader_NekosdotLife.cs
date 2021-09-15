@@ -7,7 +7,6 @@ namespace NyaBackground
 {
     class ImageDownloader_NekosdotLife
     {
-
         public static void FileNamer()
         {
             Console.WriteLine("File found. Renaming old image...");
@@ -31,61 +30,59 @@ namespace NyaBackground
                     File.Move(Path.Combine(file, "current.png"), Path.Combine(file, $"{rndName}.png"));
                 }
             }
-
-
-
         }
-        static bool DoesFileExist()
+        static void DoesFileExist()
         {
-            bool returnBool = false;
             string file = ChangeWallpaper.ImagePath();
             Console.WriteLine("Checking for existing files...");
             if (File.Exists(file))
             {
-                returnBool = true;
-                
+                FileNamer();                
             }
             Console.WriteLine("Requesting image...");
-
-            return returnBool;
         }
-
-        static string ImageCreator(string tag, string cat)
+        static string ImageURLCreator(string tag, string cat)
         {
             string url = $"https://nekos.life/api/v2/{tag}/{cat}";
-
             return url;
         }
-
-        
-        public static void Neko()
+        static void DownloadClient(string url)
         {
-            if (DoesFileExist()) FileNamer();
             string sourceFile = Path.Combine(Directory.GetCurrentDirectory(), "current.png");
             string destFile = ChangeWallpaper.ImagePath();
 
-            //var url = "https://nekos.life/api/v2/img/neko";
+            using (var client = new WebClient())
+            {
+                client.DownloadFile(url, "current.png");
+                File.Move(sourceFile, destFile);
+            }
+            Console.WriteLine("Image downloaded");            
+        }
+        public static dynamic JsonParser(WebRequest apiurl)
+        {
+            apiurl.Method = "GET";
 
-            var request = WebRequest.Create(ImageCreator("img", "neko"));
-            request.Method = "GET";
-
-            using var webResponse = request.GetResponse();
+            using var webResponse = apiurl.GetResponse();
             using var webStream = webResponse.GetResponseStream();
             using var reader = new StreamReader(webStream);
             var data = reader.ReadToEnd();
             dynamic json = JObject.Parse(data);
             Console.WriteLine($"Image url: {json.url}");
-            string imageURL = json.url;
-
-
-
-            using (var client = new WebClient())
-            {
-                client.DownloadFile(imageURL, "current.png");
-                File.Move(sourceFile, destFile);
-            }
-            Console.WriteLine("Image downloaded");
-
+            return json;
+        }
+        public static void NekoIMG()
+        {
+            DoesFileExist();
+            WebRequest request = WebRequest.Create(ImageURLCreator("img", "neko"));
+            string imageURL = JsonParser(request).url;
+            DownloadClient(imageURL);
+        }
+        public static void WaifuIMG()
+        {
+            DoesFileExist();
+            WebRequest request = WebRequest.Create(ImageURLCreator("img", "waifu"));
+            string imageURL = JsonParser(request).url;
+            DownloadClient(imageURL);
         }
     }
 }

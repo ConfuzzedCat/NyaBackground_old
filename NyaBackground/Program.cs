@@ -9,7 +9,7 @@ namespace NyaBackground
 
         public static void Main(string[] args)
         {
-            bool linuxTesting = false;
+            bool linuxTesting = true;
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !linuxTesting)
             {
                 Console.WriteLine("Linux not supported.");
@@ -17,8 +17,9 @@ namespace NyaBackground
             }
             Console.WriteLine("Welcome!");
 
-            ImageDownloader_NekosdotLife.Neko();
+            //ImageDownloader_NekosdotLife.Neko();
             //Console.WriteLine(ChangeWallpaper.GetImagePath());
+            ChangeWallpaper.GetImage();
             Console.ReadLine();
 
 
