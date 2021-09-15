@@ -5,26 +5,20 @@ namespace NyaBackground
 {
     class Program
     {
-        //static void Main(string[] args) => Run();
-
         public static void Main(string[] args)
         {
-            bool linuxTesting = true;
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !linuxTesting)
-            {
-                Console.WriteLine("Linux not supported.");
-                Environment.Exit(0);
-            }
-            Console.WriteLine("Welcome!");
-
-            //ImageDownloader_NekosdotLife.Neko();
-            //Console.WriteLine(ChangeWallpaper.GetImagePath());
-            ChangeWallpaper.GetImage();
             Console.ReadLine();
-
-
+            Start();
+        }
+        static void Start()
+        {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) Environment.Exit(0);
+            Console.WriteLine("Welcome!");
+            ChangeWallpaper.GetImage();
+            Console.Write("Want another background? yes or no: ");
+            string restart = Console.ReadLine();
+            if (restart != null) restart.ToLower();
+            if (restart == "yes") Start();
         }
     }
 }
-
-//bgimage_url: https://i.imgur.com/59J10Ch.jpeg
