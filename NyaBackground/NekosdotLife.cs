@@ -1,7 +1,7 @@
 ﻿using System.Net;
 namespace NyaBackground
 {
-    class ImageDownloader_NekosdotLife : ImageDownloader
+    class NekosdotLife : ImageDownloader
     {
         public static void NekoIMG()
         {

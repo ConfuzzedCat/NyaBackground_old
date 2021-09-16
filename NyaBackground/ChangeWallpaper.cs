@@ -15,7 +15,7 @@ namespace NyaBackground
                 Directory.CreateDirectory(path);
                 Console.WriteLine($"{path} created!");
             }
-            ImageDownloader_NekosdotLife.NekoIMG();
+            NekosdotLife.NekoIMG();
             string photo = Path.Combine(path,"current.png");
             Console.WriteLine(photo);
             //DisplayPicture(photo);
