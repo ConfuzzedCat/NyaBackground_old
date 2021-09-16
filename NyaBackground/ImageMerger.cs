@@ -1,12 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Drawing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.PixelFormats;
-
 namespace NyaBackground
 {
     class ImageMerger 
@@ -14,7 +9,7 @@ namespace NyaBackground
         public static string MergeImages(string outputFolder)
         {
             using (Image<Rgba32> img1 = Image.Load<Rgba32>("source1.png")) // load up source images
-            using (Image<Rgba32> img2 = Image.Load<Rgba32>("source2.png"))
+            using (Image<Rgba32> img2 = Image.Load<Rgba32>(ChangeWallpaper.GetImagePath()))
             using (Image<Rgba32> outputImage = new Image<Rgba32>(200, 150)) // create output image of the correct dimensions
             {
                 // reduce source images to correct dimensions

@@ -5,8 +5,6 @@ namespace NyaBackground
 {
     class ChangeWallpaper
     {
-       public static string path = Path.Combine(Directory.GetCurrentDirectory(), "img");         
-        //string type, string category
         public static void GetImage()
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), "img");
