@@ -5,11 +5,7 @@ namespace NyaBackground
 {
     class ChangeWallpaper
     {
-       public static string ImagePath()
-        {
-            string imagePath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), "img"), "current.png");
-            return imagePath;
-        } 
+       public static string path = Path.Combine(Directory.GetCurrentDirectory(), "img");         
         //string type, string category
         public static void GetImage()
         {
@@ -20,7 +16,6 @@ namespace NyaBackground
                 Console.WriteLine($"{path} created!");
             }
             ImageDownloader_NekosdotLife.NekoIMG();
-            Console.WriteLine("DEBUG: ImageDownloader.Neko() DONE");
             string photo = Path.Combine(path,"current.png");
             Console.WriteLine(photo);
             //DisplayPicture(photo);
@@ -36,8 +31,17 @@ namespace NyaBackground
             {
                 Directory.CreateDirectory(path);
             }
-            string photo = $@"{path}\current.PNG";
+            string photo = Path.Combine(path,"current.PNG");
             return photo;
+        }
+        public static string GetFolderPath()
+        {
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "img");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path;
         }
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -53,6 +57,11 @@ namespace NyaBackground
             {
                 Console.WriteLine("Error");
             }
+        }
+
+        public static void MergeCaller()
+        {
+            string extension = ImageMerger.GetExtension(GetImagePath());
         }
     }
 }
