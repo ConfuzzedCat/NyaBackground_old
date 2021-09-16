@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using Newtonsoft.Json.Linq;
-
+﻿using System.Net;
 namespace NyaBackground
 {
     class ImageDownloader_NekosdotLife : ImageDownloader
