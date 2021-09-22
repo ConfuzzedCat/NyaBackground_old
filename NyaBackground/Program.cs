@@ -5,20 +5,21 @@ namespace NyaBackground
 {
     class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            Console.ReadLine();
+            //Fix OutOfMemory Error!
+            Console.WriteLine("Welcome!");
             Start();
         }
         static void Start()
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) Environment.Exit(0);
-            Console.WriteLine("Welcome!");
+            //if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) Environment.Exit(0);
+            //Console.WriteLine("Welcome!");
             ChangeWallpaper.GetImage();
-            Console.Write("Want another background? yes or no: ");
-            string restart = Console.ReadLine();
+            //Console.Write("Want another background? yes or no: ");
+            /*string restart = Console.ReadLine();
             if (restart != null) restart.ToLower();
-            if (restart == "yes") Start();
+            if (restart == "yes") Start();*/
         }
     }
 }

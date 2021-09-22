@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NyaBackground": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

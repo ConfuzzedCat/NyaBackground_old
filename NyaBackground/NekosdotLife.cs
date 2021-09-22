@@ -3,10 +3,15 @@ namespace NyaBackground
 {
     class NekosdotLife : ImageDownloader
     {
+        public static string ImageURLCreator(string tag, string cat)
+        {
+            string url = $"https://nekos.life/api/v2/{tag}/{cat}";
+            return url;
+        }
         public static void NekoIMG()
         {
-            DoesFileExist();
-            WebRequest request = WebRequest.Create(ImageURLCreator("img", "neko"));
+            //DoesFileExist();
+            WebRequest request = WebRequest.Create(ImageURLCreator("img", "neko")); //Fix OutOfMemory Error!
             string imageURL = JsonParser(request).url;
             DownloadClient(imageURL);
         }

@@ -38,31 +38,27 @@ namespace NyaBackground
             }
             Console.WriteLine("Requesting image...");
         }
-        public static string ImageURLCreator(string tag, string cat)
-        {
-            string url = $"https://nekos.life/api/v2/{tag}/{cat}";
-            return url;
-        }
         public static void DownloadClient(string url)
         {
-            string sourceFile = Path.Combine(Directory.GetCurrentDirectory(), "current.png");
+            string sourceFile = Path.Combine(Directory.GetCurrentDirectory(), "unmerge.png");
             string destFile = ChangeWallpaper.GetImagePath();
 
-            using (var client = new WebClient())
+            using (WebClient client = new WebClient())
             {
-                client.DownloadFile(url, "current.png");
+                client.DownloadFile(url, "unmerge.png");
                 File.Move(sourceFile, destFile);
             }
-            Console.WriteLine("Image downloaded");            
+            Console.WriteLine("Image downloaded");
+            ImageMerger.MergeImages(ChangeWallpaper.GetImagePath(), Path.Combine(ChangeWallpaper.GetFolderPath(), "bg.png"));
         }
         public static dynamic JsonParser(WebRequest apiurl)
         {
             apiurl.Method = "GET";
 
-            using var webResponse = apiurl.GetResponse();
-            using var webStream = webResponse.GetResponseStream();
-            using var reader = new StreamReader(webStream);
-            var data = reader.ReadToEnd();
+            using WebResponse webResponse = apiurl.GetResponse();
+            using Stream webStream = webResponse.GetResponseStream();
+            using StreamReader reader = new StreamReader(webStream);
+            string data = reader.ReadToEnd();
             dynamic json = Newtonsoft.Json.Linq.JObject.Parse(data);
             Console.WriteLine($"Image url: {json.url}");
             return json;

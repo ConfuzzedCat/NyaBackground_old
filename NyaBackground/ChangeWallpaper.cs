@@ -13,23 +13,37 @@ namespace NyaBackground
                 Directory.CreateDirectory(path);
                 Console.WriteLine($"{path} created!");
             }
+            Console.WriteLine("Type either \"neko\" or \"waifu\".");
+            //CategorySwitch(Console.ReadLine());
             NekosdotLife.NekoIMG();
             string photo = Path.Combine(path,"current.png");
             Console.WriteLine(photo);
-            //DisplayPicture(photo);
         }
-        static void SwitchChose()
+        static void CategorySwitch(string cat)
         {
-            
+            switch (cat)
+            {
+                case "neko":
+                    NekosdotLife.NekoIMG();
+                    break;
+                case "waifu":
+                    NekosdotLife.WaifuIMG();
+                    break;
+                default:
+                    Console.WriteLine("Invalid category. Vaild categories: \"neko\" and \"waifu\".");
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                    break;
+            }
         }
         public static string GetImagePath()
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "img");
+            string path = GetFolderPath();
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-            string photo = Path.Combine(path,"current.PNG");
+            string photo = Path.Combine(path,"unmerge.PNG");
             return photo;
         }
         public static string GetFolderPath()
@@ -41,13 +55,13 @@ namespace NyaBackground
             }
             return path;
         }
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SystemParametersInfo(uint uiAction, uint uiParam, String pvParam, uint fWinIni);
         private const uint SPI_SETDESKWALLPAPER = 0x14;
-        private const uint SPIF_UPDATEINIFILE = 0x1;
-        private const uint SPIF_SENDWININICHANGE = 0x2;
-        private static void DisplayPicture(string file_name)
+        //private const uint SPIF_UPDATEINIFILE = 0x1;
+        //private const uint SPIF_SENDWININICHANGE = 0x2;
+        public static void DisplayPicture(string file_name)
         {
             uint flags = 0;
             if (!SystemParametersInfo(SPI_SETDESKWALLPAPER,
@@ -55,11 +69,6 @@ namespace NyaBackground
             {
                 Console.WriteLine("Error");
             }
-        }
-
-        public static void MergeCaller()
-        {
-            string extension = ImageMerger.GetExtension(GetImagePath());
         }
     }
 }
