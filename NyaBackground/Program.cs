@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Timers;
 
 namespace NyaBackground
 {
@@ -13,13 +14,20 @@ namespace NyaBackground
         }
         static void Start()
         {
-            //if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) Environment.Exit(0);
-            //Console.WriteLine("Welcome!");
+            Timer timer = new Timer(30 * 60 * 1000);
             ChangeWallpaper.GetImage();
-            //Console.Write("Want another background? yes or no: ");
-            /*string restart = Console.ReadLine();
-            if (restart != null) restart.ToLower();
-            if (restart == "yes") Start();*/
+            timer.Start();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                while(true){
+                    timer.Elapsed += OnTick; // Which can also be written as += new ElapsedEventHandler(OnTick);
+                }           
+            }
+        }
+
+        static void OnTick(object source, ElapsedEventArgs e)
+        { 
+            ChangeWallpaper.GetImage();
         }
     }
 }

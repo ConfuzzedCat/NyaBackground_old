@@ -10,7 +10,7 @@ namespace NyaBackground
         }
         public static void NekoIMG()
         {
-            //DoesFileExist();
+            DoesFileExist();
             WebRequest request = WebRequest.Create(ImageURLCreator("img", "neko")); //Fix OutOfMemory Error!
             string imageURL = JsonParser(request).url;
             DownloadClient(imageURL);

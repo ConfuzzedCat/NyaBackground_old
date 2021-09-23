@@ -14,8 +14,7 @@ namespace NyaBackground
                 Console.WriteLine($"{path} created!");
             }
             Console.WriteLine("Type either \"neko\" or \"waifu\".");
-            //CategorySwitch(Console.ReadLine());
-            NekosdotLife.NekoIMG();
+            CategorySwitch(Console.ReadLine());
             string photo = Path.Combine(path,"current.png");
             Console.WriteLine(photo);
         }
@@ -43,7 +42,7 @@ namespace NyaBackground
             {
                 Directory.CreateDirectory(path);
             }
-            string photo = Path.Combine(path,"unmerge.PNG");
+            string photo = Path.Combine(path,"unmerge.png");
             return photo;
         }
         public static string GetFolderPath()
@@ -59,8 +58,6 @@ namespace NyaBackground
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SystemParametersInfo(uint uiAction, uint uiParam, String pvParam, uint fWinIni);
         private const uint SPI_SETDESKWALLPAPER = 0x14;
-        //private const uint SPIF_UPDATEINIFILE = 0x1;
-        //private const uint SPIF_SENDWININICHANGE = 0x2;
         public static void DisplayPicture(string file_name)
         {
             uint flags = 0;

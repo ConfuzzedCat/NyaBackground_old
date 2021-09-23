@@ -11,21 +11,20 @@ namespace NyaBackground
             rnd.Next();
             string rndName = rnd.Next(999999999).ToString();
             string file = ChangeWallpaper.GetFolderPath();
-            bool exist = true;
-            while(exist)
+            string temp_1 = Path.Combine(file, "current.png");
+            string temp_2 = Path.Combine(file, "unmerge.png");            
+            if (File.Exists(temp_1))
             {
-                if (!File.Exists(Path.Combine(file, $"{rndName}.png")))
-                {
-                    File.Move(Path.Combine(file, "current.png"), Path.Combine(file, $"{rndName}.png"));
-                    Console.WriteLine($"The old file is now named {rndName}.png...");
-                    exist = false;
-                }
-                else
-                {
-                    rndName = rnd.Next(999999999).ToString();
-                    File.Move(Path.Combine(file, "current.png"), Path.Combine(file, $"{rndName}.png"));
-                }
+                rndName = rnd.Next(999999999).ToString();
+                File.Move(temp_1, Path.Combine(file, $"{rndName}.png"));
+                Console.WriteLine($"{temp_1} renamed to {Path.Combine(file, $"{rndName}.png")}");
             }
+            if (File.Exists(temp_2))
+            {
+                rndName = rnd.Next(999999999).ToString();
+                File.Move(temp_2, Path.Combine(file, $"{rndName}.png"));
+                Console.WriteLine($"{temp_2} renamed to {Path.Combine(file, $"{rndName}.png")}");
+            }            
         }
         public static void DoesFileExist()
         {
@@ -42,7 +41,7 @@ namespace NyaBackground
         {
             string sourceFile = Path.Combine(Directory.GetCurrentDirectory(), "unmerge.png");
             string destFile = ChangeWallpaper.GetImagePath();
-
+            DoesFileExist();
             using (WebClient client = new WebClient())
             {
                 client.DownloadFile(url, "unmerge.png");
