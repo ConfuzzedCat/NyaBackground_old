@@ -3,12 +3,15 @@ using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Memory;
+
 namespace NyaBackground
 {
     class ImageMerger 
     {
         public static void MergeImages(string downloadImage, string backgroundImage)
         {
+            Configuration.Default.MemoryAllocator = ArrayPoolMemoryAllocator.CreateWithModeratePooling();
             string imagePath = ChangeWallpaper.GetFolderPath();            
             Image<Rgba32> downloadImg = Image.Load<Rgba32>(downloadImage);
             Image<Rgba32> backgroundImg = Image.Load<Rgba32>(backgroundImage);
@@ -35,7 +38,8 @@ namespace NyaBackground
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
             {
                 ChangeWallpaper.DisplayPicture(imagePath);
-            } else Console.WriteLine("Manually change your wallpaper!");            
+            } else Console.WriteLine("Manually change your wallpaper!");
+            Configuration.Default.MemoryAllocator.ReleaseRetainedResources();
         }
 
         static Image<Rgba32> Resizer(Image<Rgba32> dwnImage, Image<Rgba32> bgImage)

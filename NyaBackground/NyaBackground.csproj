@@ -6,16 +6,19 @@
     <Nullable>disable</Nullable>
     <ApplicationIcon>maneki-neko.ico</ApplicationIcon>
     <StartupObject>NyaBackground.Program</StartupObject>
+
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
     <PlatformTarget>x64</PlatformTarget>
+
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <PlatformTarget>x64</PlatformTarget>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,5 +26,4 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta13" />
   </ItemGroup>
-
 </Project>
